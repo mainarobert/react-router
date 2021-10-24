@@ -1,7 +1,15 @@
 import React from 'react'
 
 function Contacts(props) {
-    console.log(props)
+    // here props shows extra infomation about the router
+    // console.log(props)
+
+    // redirects to about page after 3 sec
+    // this is possible because Contacts component has route path its props recieve additional objects from the router
+    setTimeout(() => {
+        props.history.push('/about')
+    }, 3000);
+
     return (
         <div className= "container">
             <h3 className= "center">Contacts</h3>

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Colors from '../hoc/Colors';
 
 function About() {
     return (
@@ -13,4 +14,4 @@ function About() {
     )
 }
 
-export default About;
+export default Colors(About);
