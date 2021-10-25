@@ -1,16 +1,50 @@
-import React from 'react'
+import React, { Component } from 'react'
+import axios from 'axios';
 
-const Home = () => {
-    return (
-        <div className= "container">
-            <h3 className= "center">Home</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusamus dolorem vel, laboriosam aspernatur dolorum unde
-                quibusdam odit possimus iusto blanditiis assumenda officia,
-                natus ratione odio inventore consequatur fugit modi aliquid.
-            </p>
-        </div>
-    )
+class Home extends Component {
+    state = {
+        posts: []
+    }
+
+    componentDidMount() {
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+        .then(res => {
+            this.setState({
+                posts: res.data.slice(0,10) // gets the first ten items
+            });
+        });
+    }
+
+    render() {
+        const {posts} = this.state
+        // cycles through posts when we have data
+        const postlists = posts.length ? (
+            posts.map(post => {
+                return(
+                <div className='post card' key= {post.id} >
+                    <div className="card-content">
+                        <span className="card title">{post.title}</span>
+                        <p>{post.body}</p>
+                    </div>
+                </div>
+                )
+
+            })
+            // else
+        ) : (
+            <div className= 'center'>
+                No posts yet
+            </div>
+        );
+
+        return (
+            <div className= "container">
+                <h3 className= "center">Home</h3>
+                <p>{postlists}</p>
+            </div>
+        );
+    }
+
 }
 
 export default Home;
